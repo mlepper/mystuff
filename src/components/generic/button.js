@@ -14,10 +14,12 @@ export default ({
     <button
       className={classnames("button", buttonClasses)}
       onClick={handleClick}
-      {...buttonProps}>
+      {...buttonProps}
+    >
       <span
         className={classnames("button-label", labelClasses)}
-        {...labelProps}>
+        {...labelProps}
+      >
         {children}
       </span>
     </button>
