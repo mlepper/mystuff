@@ -22,6 +22,9 @@ const Login = props => {
                   inputClasses="email-address"
                   autoComplete="true"
                   required
+                  onChange={s => {
+                    console.log(s);
+                  }}
                 />
                 <fieldset>
                   <legend>Password</legend>

@@ -11,10 +11,14 @@ const Input = ({
   placeHolder,
   inputClasses = [],
   valid,
+  onChange = () => null,
   ...rest
 }) => {
-  const initState = defaultValue ? { [rest.name || id]: defaultValue } : null;
+  const uid = rest.name || id;
+  const initState = defaultValue ? { [uid]: defaultValue } : null;
   const [formState, inputs] = useFormState(initState);
+
+  onChange(formState.values[uid]);
 
   return (
     <fieldset>
@@ -24,8 +28,8 @@ const Input = ({
         {rest.required ? "*" : ""}
         <input
           id={id}
-          {...inputs[type](rest.name || id)}
-          name={rest.name || id}
+          {...inputs[type](uid)}
+          name={uid}
           className={classnames(inputClasses)}
           placeholder={placeHolder || label}
           {...rest}
