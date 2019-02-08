@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Input from "../components/generic/input";
 
 const Login = props => {
   return (
@@ -12,26 +13,19 @@ const Login = props => {
             </div>
             <div className="form-container">
               <form>
-                <fieldset>
-                  <legend>Email Address</legend>
-                  <label htmFor="email-address">
-                    Email Address&#42;
-                    <input
-                      type="email"
-                      name="email-address"
-                      className="email-address"
-                      placeholder="Enter your email address"
-                      autoComplete
-                    />
-                    <span className="is-valid" />
-                  </label>
-                  <span className="error-message">
-                    This is where the error message goes
-                  </span>
-                </fieldset>
+                <Input
+                  id="email-address"
+                  type="email"
+                  label="Email Address"
+                  placeHolder="Enter your email address"
+                  defaultValue="leslie@mcmillan.com"
+                  inputClasses="email-address"
+                  autoComplete="true"
+                  required
+                />
                 <fieldset>
                   <legend>Password</legend>
-                  <label for="password">
+                  <label htmlFor="password">
                     Password&#42;
                     <input
                       type="password"
@@ -50,7 +44,7 @@ const Login = props => {
                 </fieldset>
                 <fieldset>
                   <legend>Remember Me</legend>
-                  <label for="remember" className="checkbox">
+                  <label htmlFor="remember" className="checkbox">
                     Remember Me
                     <input type="checkbox" name="remember" id="remember" />
                   </label>
