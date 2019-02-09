@@ -21,7 +21,7 @@ const fieldOverides = {
 export const getValidationError = (validity = {}, fieldType) => {
   const messages = [];
   for (let key in validity) {
-    if (validity[key]) {
+    if (key !== "valid" && validity[key]) {
       let msg = errormap[key];
       if (
         fieldType &&

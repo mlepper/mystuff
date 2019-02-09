@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Input from "../components/generic/input";
 import ButtonWrapper from "../components/generic/buttonWrapper";
 import Button from "../components/generic/button";
+import Header from "../components/header";
 
 const Login = props => {
   const [email, setEmail] = useState();
@@ -31,36 +32,38 @@ const Login = props => {
   };
 
   return (
-    <main>
-      <section data-qa="log-in">
-        <div className="carousel no-padding">
-          <div className="carousel-cell">
-            <div className="text">
-              <h1>Welcome</h1>
-              <p>Please log in to continue.</p>
-            </div>
-            <div className="form-container">
-              <form>
-                <Input
-                  id="email-address"
-                  type="email"
-                  label="Email Address"
-                  placeHolder="Enter your email address"
-                  // defaultValue="leslie@mcmillan.com"
-                  inputClasses="email-address"
-                  autoComplete="true"
-                  required
-                  onChange={val => setEmail(val)}
-                />
-                <Input
-                  type="password"
-                  id="password"
-                  label="Password"
-                  placeHolder="Enter your password"
-                  required
-                  onChange={val => setPassword(val)}
-                />
-                <fieldset>
+    <React.Fragment>
+      <Header />
+      <main>
+        <section data-qa="log-in">
+          <div className="carousel no-padding">
+            <div className="carousel-cell">
+              <div className="text">
+                <h1>Welcome</h1>
+                <p>Please log in to continue.</p>
+              </div>
+              <div className="form-container">
+                <form>
+                  <Input
+                    id="email-address"
+                    type="email"
+                    label="Email Address"
+                    placeHolder="Enter your email address"
+                    // defaultValue="leslie@mcmillan.com"
+                    inputClasses="email-address"
+                    autoComplete="true"
+                    required
+                    onChange={val => setEmail(val)}
+                  />
+                  <Input
+                    type="password"
+                    id="password"
+                    label="Password"
+                    placeHolder="Enter your password"
+                    required
+                    onChange={val => setPassword(val)}
+                  />
+                  {/* <fieldset>
                   <legend>Remember Me</legend>
                   <label htmlFor="remember" className="checkbox">
                     Remember Me
@@ -72,32 +75,32 @@ const Login = props => {
                   <span className="error-message">
                     This is where the error message goes
                   </span>
-                </fieldset>
-                {/* <div className="button-box left">
+                </fieldset> */}
+                  {/* <div className="button-box left">
                   <button className="button" href="../home/index.html">
                     <span className="button-label">Log In</span>
                   </button>
                 </div> */}
-                <ButtonWrapper wrapperClasses="left">
-                  <Button
-                    handleClick={e => {
-                      e.preventDefault();
-                      handleClick();
-                    }}
-                  >
-                    Log In
-                  </Button>
-                </ButtonWrapper>
-              </form>
-              <p>
+                  <ButtonWrapper wrapperClasses="left">
+                    <Button
+                      handleClick={e => {
+                        e.preventDefault();
+                        handleClick();
+                      }}
+                    >
+                      Log In
+                    </Button>
+                  </ButtonWrapper>
+                </form>
+                {/* <p>
                 <small>
                   Don't have an account?
                   <a href="../register/index.html">Create one now</a>.
                 </small>
-              </p>
+              </p> */}
+              </div>
             </div>
-          </div>
-          {/* <div className="carousel-cell">
+            {/* <div className="carousel-cell">
             <div className="text">
               <h1>Reset Your Password</h1>
               <p>
@@ -146,9 +149,10 @@ const Login = props => {
               </p>
             </div>
           </div>*/}
-        </div>
-      </section>
-    </main>
+          </div>
+        </section>
+      </main>
+    </React.Fragment>
   );
 };
 
