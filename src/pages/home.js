@@ -1,7 +1,9 @@
 import React from "react";
-import { withFirebase } from "../utility/firebase/";
+import { useFirebase } from "../utility/firebase/";
 
-const Home = ({ user = {}, firebase }) => {
+const Home = ({ user = {} }) => {
+  const firebase = useFirebase();
+
   return (
     <>
       <h1>Hello, {user.email}</h1>
@@ -16,4 +18,4 @@ const Home = ({ user = {}, firebase }) => {
   );
 };
 
-export default withFirebase(Home);
+export default Home;

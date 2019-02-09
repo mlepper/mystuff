@@ -3,18 +3,21 @@ import Input from "../components/generic/input";
 import ButtonWrapper from "../components/generic/buttonWrapper";
 import Button from "../components/generic/button";
 import Header from "../components/header";
-import { withFirebase } from "../utility/firebase/";
+import { useFirebase } from "../utility/firebase/";
 
-const Login = props => {
+const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const firebase = useFirebase();
 
   const handleClick = () => {
     if (!email || !password) {
+      // eslint-disable-next-line
       console.log("Fill in fields");
       return;
     }
-    props.firebase.auth
+
+    firebase.auth
       .signInWithEmailAndPassword(email, password)
       .catch(function(error) {
         // Handle Errors here.
@@ -26,6 +29,7 @@ const Login = props => {
         } else {
           alert(errorMessage);
         }
+        // eslint-disable-next-line
         console.log(error);
         // [END_EXCLUDE]
       });
@@ -156,4 +160,4 @@ const Login = props => {
   );
 };
 
-export default withFirebase(Login);
+export default Login;
