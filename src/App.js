@@ -3,14 +3,16 @@ import Splash from "./pages/splash";
 import NotFound from "./pages/notFound";
 import Login from "./pages/login";
 import Home from "./pages/home";
+import { withFirebase } from "./utility/firebase/";
 
 import { Router, navigate } from "@reach/router";
 
-const App = function() {
+const App = props => {
   const [authUser, setAuthUser] = useState(null);
   const [initialized, setInitialized] = useState(false);
+
   useEffect(() => {
-    window.firebase.auth().onAuthStateChanged(user => {
+    props.firebase.auth.onAuthStateChanged(user => {
       setAuthUser(user);
       setInitialized(true);
       navigate("/");
@@ -27,7 +29,7 @@ const App = function() {
     routes = (
       <Router>
         <Splash path="/" />
-        <Login path="/login" />
+        <Login path="login" />
         <NotFound default />
       </Router>
     );
@@ -41,4 +43,4 @@ const App = function() {
   }
   return routes;
 };
-export default App;
+export default withFirebase(App);
