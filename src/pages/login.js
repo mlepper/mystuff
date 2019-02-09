@@ -3,6 +3,7 @@ import Input from "../components/generic/input";
 import ButtonWrapper from "../components/generic/buttonWrapper";
 import Button from "../components/generic/button";
 import Header from "../components/header";
+import { withFirebase } from "../utility/firebase/";
 
 const Login = props => {
   const [email, setEmail] = useState();
@@ -13,8 +14,7 @@ const Login = props => {
       console.log("Fill in fields");
       return;
     }
-    window.firebase
-      .auth()
+    props.firebase.auth
       .signInWithEmailAndPassword(email, password)
       .catch(function(error) {
         // Handle Errors here.
@@ -156,4 +156,4 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default withFirebase(Login);

@@ -1,12 +1,13 @@
 import React from "react";
+import { withFirebase } from "../utility/firebase/";
 
-const Home = ({ user = {} }) => {
+const Home = ({ user = {}, firebase }) => {
   return (
     <>
       <h1>Hello, {user.email}</h1>
       <button
         onClick={() => {
-          window.firebase.auth().signOut();
+          firebase.auth.signOut();
         }}
       >
         Log Out
@@ -15,4 +16,4 @@ const Home = ({ user = {} }) => {
   );
 };
 
-export default Home;
+export default withFirebase(Home);
