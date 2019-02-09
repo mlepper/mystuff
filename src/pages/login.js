@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Input from "../components/generic/input";
 
 const Login = props => {
@@ -18,7 +18,7 @@ const Login = props => {
                   type="email"
                   label="Email Address"
                   placeHolder="Enter your email address"
-                  defaultValue="leslie@mcmillan.com"
+                  // defaultValue="leslie@mcmillan.com"
                   inputClasses="email-address"
                   autoComplete="true"
                   required
@@ -66,7 +66,7 @@ const Login = props => {
               </form>
               <p>
                 <small>
-                  Don't have an account?{" "}
+                  Don't have an account?
                   <a href="../register/index.html">Create one now</a>.
                 </small>
               </p>
