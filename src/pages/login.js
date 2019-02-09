@@ -22,29 +22,16 @@ const Login = props => {
                   inputClasses="email-address"
                   autoComplete="true"
                   required
-                  onChange={s => {
-                    console.log(s);
-                  }}
+                  onChange={val => console.log(val)}
                 />
-                <fieldset>
-                  <legend>Password</legend>
-                  <label htmlFor="password">
-                    Password&#42;
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="Enter your password"
-                    />
-                  </label>
-                  <span
-                    toggle="#password"
-                    className="la la-eye-slash show-hide-password"
-                  />
-                  <span className="error-message">
-                    This is where the error message goes
-                  </span>
-                </fieldset>
+                <Input
+                  type="password"
+                  id="password"
+                  label="Password"
+                  placeHolder="Enter your password"
+                  required
+                  onChange={val => console.log(val)}
+                />
                 <fieldset>
                   <legend>Remember Me</legend>
                   <label htmlFor="remember" className="checkbox">

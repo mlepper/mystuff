@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { useFormState } from "react-use-form-state";
@@ -19,6 +19,7 @@ const Input = ({
   const initState = defaultValue ? { [uid]: defaultValue } : null;
   const [inputState, inputs] = useFormState(initState);
   const inputRef = useRef(null);
+  const [currentType, setCurrentType] = useState(type);
 
   let isValid = true,
     validationError = "";
@@ -54,6 +55,8 @@ const Input = ({
     }
   }
 
+  const baseType = type;
+
   return (
     <fieldset {...fieldSetProps}>
       <legend>{label}</legend>
@@ -67,8 +70,21 @@ const Input = ({
           name={uid}
           placeholder={placeHolder || label}
           {...rest}
+          type={currentType}
         />
       </label>
+      {baseType === "password" && (
+        <span
+          className={classnames(
+            "la",
+            "show-hide-password",
+            currentType === "password" ? "la-eye-slash" : "la-eye"
+          )}
+          onClick={() => {
+            setCurrentType(currentType === "password" ? "text" : "password");
+          }}
+        />
+      )}
       <span className="error-message">{validationError}</span>
     </fieldset>
   );
