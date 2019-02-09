@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../components/generic/input";
+import ButtonWrapper from "../components/generic/buttonWrapper";
+import Button from "../components/generic/button";
 
 const Login = props => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const handleClick = () => {
+    if (!email || !password) {
+      console.log("Fill in fields");
+      return;
+    }
+    window.firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode === "auth/wrong-password") {
+          alert("Wrong password.");
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+  };
+
   return (
     <main>
       <section data-qa="log-in">
@@ -22,7 +50,7 @@ const Login = props => {
                   inputClasses="email-address"
                   autoComplete="true"
                   required
-                  onChange={val => console.log(val)}
+                  onChange={val => setEmail(val)}
                 />
                 <Input
                   type="password"
@@ -30,7 +58,7 @@ const Login = props => {
                   label="Password"
                   placeHolder="Enter your password"
                   required
-                  onChange={val => console.log(val)}
+                  onChange={val => setPassword(val)}
                 />
                 <fieldset>
                   <legend>Remember Me</legend>
@@ -45,11 +73,21 @@ const Login = props => {
                     This is where the error message goes
                   </span>
                 </fieldset>
-                <div className="button-box left">
-                  <a className="button" href="../home/index.html">
+                {/* <div className="button-box left">
+                  <button className="button" href="../home/index.html">
                     <span className="button-label">Log In</span>
-                  </a>
-                </div>
+                  </button>
+                </div> */}
+                <ButtonWrapper wrapperClasses="left">
+                  <Button
+                    handleClick={e => {
+                      e.preventDefault();
+                      handleClick();
+                    }}
+                  >
+                    Log In
+                  </Button>
+                </ButtonWrapper>
               </form>
               <p>
                 <small>
