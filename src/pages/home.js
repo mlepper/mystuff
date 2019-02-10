@@ -1,5 +1,6 @@
 import React from "react";
 import { useFirebase } from "../utility/firebase/";
+import { navigate } from "@reach/router";
 
 const Home = ({ user = {} }) => {
   const firebase = useFirebase();
@@ -10,6 +11,7 @@ const Home = ({ user = {} }) => {
       <button
         onClick={() => {
           firebase.auth.signOut();
+          navigate("/");
         }}
       >
         Log Out
