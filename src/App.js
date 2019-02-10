@@ -3,16 +3,16 @@ import Splash from "./pages/splash";
 import NotFound from "./pages/notFound";
 import Login from "./pages/login";
 import Home from "./pages/home";
-import { withFirebase } from "./utility/firebase/";
-
+import { useFirebase } from "./utility/firebase/";
 import { Router, navigate } from "@reach/router";
 
-const App = props => {
+const App = () => {
   const [authUser, setAuthUser] = useState(null);
   const [initialized, setInitialized] = useState(false);
+  const firebase = useFirebase();
 
   useEffect(() => {
-    props.firebase.auth.onAuthStateChanged(user => {
+    firebase.auth.onAuthStateChanged(user => {
       setAuthUser(user);
       setInitialized(true);
       navigate("/");
@@ -43,4 +43,4 @@ const App = props => {
   }
   return routes;
 };
-export default withFirebase(App);
+export default App;
