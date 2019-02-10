@@ -26,6 +26,7 @@ const Login = props => {
         if (qs.referrer) {
           navigate(qs.referrer);
         }
+        navigate("home");
       })
       .catch(function(error) {
         // Handle Errors here.
