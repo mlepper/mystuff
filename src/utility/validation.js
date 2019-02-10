@@ -15,6 +15,9 @@ const fieldOverides = {
   email: {
     typeMismatch: "A valid email is required.",
     valueMissing: "A valid email is required."
+  },
+  password: {
+    tooShort: "Password must be at least 6 characters."
   }
 };
 

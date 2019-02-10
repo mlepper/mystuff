@@ -33,12 +33,12 @@ const Input = ({
     (inputRef && inputRef.current && inputRef.current.validity) || {};
 
   if (isTouched) {
-    // if (isValid) {
-    //   onChange(inputState.values[uid]);
-    // } else {
     [validationError] = getValidationError(validity, type);
-    // }
-    onChange({ inputState });
+
+    onChange({
+      valid: inputState.validity[uid],
+      value: inputState.values[uid]
+    });
   }
 
   const inputProps = { ...rest };
