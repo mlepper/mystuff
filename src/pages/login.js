@@ -4,10 +4,13 @@ import ButtonWrapper from "../components/generic/buttonWrapper";
 import Button from "../components/generic/button";
 import Header from "../components/header";
 import { useFirebase } from "../utility/firebase/";
+import queryString from "query-string";
+import { navigate } from "@reach/router";
 
-const Login = () => {
+const Login = props => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [qs] = useState(queryString.parse(props.location.search));
   const firebase = useFirebase();
 
   const handleClick = () => {
@@ -19,16 +22,21 @@ const Login = () => {
 
     firebase.auth
       .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        if (qs.referrer) {
+          navigate(qs.referrer);
+        }
+      })
       .catch(function(error) {
         // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
         // [START_EXCLUDE]
-        if (errorCode === "auth/wrong-password") {
-          alert("Wrong password.");
-        } else {
-          alert(errorMessage);
-        }
+        // if (errorCode === "auth/wrong-password") {
+        //   alert("Wrong password.");
+        // } else {
+        //   alert(errorMessage);
+        // }
         // eslint-disable-next-line
         console.log(error);
         // [END_EXCLUDE]
