@@ -12,6 +12,7 @@ const Input = ({
   placeHolder,
   inputClasses = [],
   fieldSetClasses = [],
+  showErrors = true,
   onChange = () => null,
   ...rest
 }) => {
@@ -32,11 +33,12 @@ const Input = ({
     (inputRef && inputRef.current && inputRef.current.validity) || {};
 
   if (isTouched) {
-    if (isValid) {
-      onChange(inputState.values[uid]);
-    } else {
-      [validationError] = getValidationError(validity, type);
-    }
+    // if (isValid) {
+    //   onChange(inputState.values[uid]);
+    // } else {
+    [validationError] = getValidationError(validity, type);
+    // }
+    onChange({ inputState });
   }
 
   const inputProps = { ...rest };
@@ -46,7 +48,7 @@ const Input = ({
   }
   if (fieldSetClasses) {
     let extra = "";
-    if (isTouched) {
+    if (showErrors && isTouched) {
       extra = isValid ? "valid" : "invalid";
     }
     fieldSetProps.className = classnames(fieldSetClasses, extra);

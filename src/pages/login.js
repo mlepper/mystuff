@@ -10,8 +10,21 @@ import { navigate } from "@reach/router";
 const Login = props => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [attempted, setAttempted] = useState(false);
   const [qs] = useState(queryString.parse(props.location.search));
   const firebase = useFirebase();
+
+  const showEmailErrors =
+    attempted &&
+    email &&
+    email.inputState &&
+    !email.inputState.validity["email-address"];
+
+  const showPasswordErrors =
+    attempted &&
+    password &&
+    password.inputState &&
+    !password.inputState.validity["password"];
 
   const handleClick = () => {
     if (!email || !password) {
@@ -20,30 +33,42 @@ const Login = props => {
       return;
     }
 
-    firebase.auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        if (qs.referrer) {
-          navigate(qs.referrer);
-        }
-        navigate("home");
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
-        // [START_EXCLUDE]
-        // if (errorCode === "auth/wrong-password") {
-        //   alert("Wrong password.");
-        // } else {
-        //   alert(errorMessage);
-        // }
-        // eslint-disable-next-line
-        console.log(error);
-        // [END_EXCLUDE]
-      });
-  };
+    setAttempted(true);
 
+    if (
+      !email.inputState.validity["email-address"] ||
+      !password.inputState.validity["password"]
+    ) {
+      return;
+    }
+
+    try {
+      firebase.auth
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          if (qs.referrer) {
+            navigate(qs.referrer);
+          }
+          navigate("home");
+        })
+        .catch(function(error) {
+          // Handle Errors here.
+          // var errorCode = error.code;
+          // var errorMessage = error.message;
+          // [START_EXCLUDE]
+          // if (errorCode === "auth/wrong-password") {
+          //   alert("Wrong password.");
+          // } else {
+          //   alert(errorMessage);
+          // }
+          // eslint-disable-next-line
+          alert(error);
+          // [END_EXCLUDE]
+        });
+    } catch (e) {
+      alert(e);
+    }
+  };
   return (
     <React.Fragment>
       <Header />
@@ -66,7 +91,17 @@ const Login = props => {
                     inputClasses="email-address"
                     autoComplete="true"
                     required
-                    onChange={val => setEmail(val)}
+                    showErrors={showEmailErrors}
+                    onChange={val => {
+                      if (
+                        !email ||
+                        val.inputState.values["email-address"] !==
+                          email.inputState.values["email-address"]
+                      ) {
+                        setAttempted(false);
+                        setEmail(val);
+                      }
+                    }}
                   />
                   <Input
                     type="password"
@@ -74,7 +109,17 @@ const Login = props => {
                     label="Password"
                     placeHolder="Enter your password"
                     required
-                    onChange={val => setPassword(val)}
+                    showErrors={showPasswordErrors}
+                    onChange={val => {
+                      if (
+                        !password ||
+                        val.inputState.values["password"] !==
+                          password.inputState.values["password"]
+                      ) {
+                        setAttempted(false);
+                        setPassword(val);
+                      }
+                    }}
                   />
                   {/* <fieldset>
                   <legend>Remember Me</legend>
