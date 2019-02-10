@@ -72,6 +72,7 @@ const Input = ({
           {...rest}
           type={currentType}
         />
+        <span className="is-valid" />
       </label>
       {baseType === "password" && (
         <span
