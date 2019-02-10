@@ -14,17 +14,9 @@ const Login = props => {
   const [qs] = useState(queryString.parse(props.location.search));
   const firebase = useFirebase();
 
-  const showEmailErrors =
-    attempted &&
-    email &&
-    email.inputState &&
-    !email.inputState.validity["email-address"];
+  const showEmailErrors = attempted && email && !email.valid;
 
-  const showPasswordErrors =
-    attempted &&
-    password &&
-    password.inputState &&
-    !password.inputState.validity["password"];
+  const showPasswordErrors = attempted && password && !password.valid;
 
   const handleClick = () => {
     if (!email || !password) {
@@ -35,16 +27,13 @@ const Login = props => {
 
     setAttempted(true);
 
-    if (
-      !email.inputState.validity["email-address"] ||
-      !password.inputState.validity["password"]
-    ) {
+    if (!email.valid || !password.valid) {
       return;
     }
 
     try {
       firebase.auth
-        .signInWithEmailAndPassword(email, password)
+        .signInWithEmailAndPassword(email.value, password.value)
         .then(() => {
           if (qs.referrer) {
             navigate(qs.referrer);
@@ -93,11 +82,7 @@ const Login = props => {
                     required
                     showErrors={showEmailErrors}
                     onChange={val => {
-                      if (
-                        !email ||
-                        val.inputState.values["email-address"] !==
-                          email.inputState.values["email-address"]
-                      ) {
+                      if (!email || val.value !== email.value) {
                         setAttempted(false);
                         setEmail(val);
                       }
@@ -109,13 +94,10 @@ const Login = props => {
                     label="Password"
                     placeHolder="Enter your password"
                     required
+                    minLength={6}
                     showErrors={showPasswordErrors}
                     onChange={val => {
-                      if (
-                        !password ||
-                        val.inputState.values["password"] !==
-                          password.inputState.values["password"]
-                      ) {
+                      if (!password || val.value !== password.value) {
                         setAttempted(false);
                         setPassword(val);
                       }
