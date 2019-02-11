@@ -6,6 +6,7 @@ import Header from "../components/header";
 import { useFirebase } from "../utility/firebase/";
 import queryString from "query-string";
 import { navigate } from "@reach/router";
+import isEqual from "lodash.isequal";
 
 const Login = props => {
   const [email, setEmail] = useState();
@@ -82,7 +83,8 @@ const Login = props => {
                     required
                     showErrors={showEmailErrors}
                     onChange={val => {
-                      if (!email || val.value !== email.value) {
+                      console.log(val);
+                      if (!email || !isEqual(val, email)) {
                         setAttempted(false);
                         setEmail(val);
                       }
@@ -97,7 +99,7 @@ const Login = props => {
                     minLength={6}
                     showErrors={showPasswordErrors}
                     onChange={val => {
-                      if (!password || val.value !== password.value) {
+                      if (!password || !isEqual(val, password)) {
                         setAttempted(false);
                         setPassword(val);
                       }
