@@ -8,6 +8,7 @@ import Header from "../components/header";
 import { useFirebase } from "../utility/firebase/";
 import queryString from "query-string";
 import { navigate } from "@reach/router";
+import { useTranslation } from "react-i18next";
 
 const Login = props => {
   const [email, setEmail] = useState(null);
@@ -18,6 +19,7 @@ const Login = props => {
 
   const [qs] = useState(queryString.parse(props.location.search));
   const firebase = useFirebase();
+  const { t } = useTranslation();
 
   const showEmailErrors = attempted && email && !email.valid;
   const showPasswordErrors = attempted && password && !password.valid;
@@ -96,16 +98,16 @@ const Login = props => {
           <div className="carousel no-padding">
             <div className="carousel-cell">
               <div className="text">
-                <h1>Welcome</h1>
-                <p>Please log in to continue.</p>
+                <h1>{t("login.header.welcome")}</h1>
+                <p>{t("login.header.welcome.subtext")}</p>
               </div>
               <div className="form-container">
                 <form>
                   <Input
                     id="email-address"
                     type="email"
-                    label="Email Address"
-                    placeHolder="Enter your email address"
+                    label={t("login.email")}
+                    placeHolder={t("login.email.placeholder")}
                     defaultValue={email ? email.value : ""}
                     inputClasses="email-address"
                     autoComplete="true"
@@ -118,8 +120,8 @@ const Login = props => {
                   />
                   <Password
                     id="password"
-                    label="Password"
-                    placeHolder="Enter your password"
+                    label={t("login.password")}
+                    placeHolder={t("login.password.placeholder")}
                     required
                     minLength={6}
                     showErrors={showPasswordErrors}
@@ -142,7 +144,7 @@ const Login = props => {
                         handleClick();
                       }}
                     >
-                      Log In
+                      {t("login.button")}
                     </Button>
                   </ButtonWrapper>
                 </form>
