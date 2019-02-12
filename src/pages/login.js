@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Input from "../components/generic/input";
 import Password from "../components/generic/password";
-import Remember from "../components/generic/remember";
+import Remember from "../components/remember";
 import ButtonWrapper from "../components/generic/buttonWrapper";
 import Button from "../components/generic/button";
 import Header from "../components/header";
@@ -125,7 +125,7 @@ const Login = props => {
                   />
                   <Remember
                     onChange={({ value }) => {
-                      console.log(`Setting remember to ${value}`);
+                      //console.log(`Setting remember to ${value}`);
                       setRemember(value);
                     }}
                   />
