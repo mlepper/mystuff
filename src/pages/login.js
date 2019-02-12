@@ -6,7 +6,6 @@ import Header from "../components/header";
 import { useFirebase } from "../utility/firebase/";
 import queryString from "query-string";
 import { navigate } from "@reach/router";
-import isEqual from "lodash.isequal";
 
 const Login = props => {
   const [email, setEmail] = useState();
@@ -83,11 +82,8 @@ const Login = props => {
                     required
                     showErrors={showEmailErrors}
                     onChange={val => {
-                      console.log(val);
-                      if (!email || !isEqual(val, email)) {
-                        setAttempted(false);
-                        setEmail(val);
-                      }
+                      setAttempted(false);
+                      setEmail(val);
                     }}
                   />
                   <Input
@@ -99,25 +95,21 @@ const Login = props => {
                     minLength={6}
                     showErrors={showPasswordErrors}
                     onChange={val => {
-                      if (!password || !isEqual(val, password)) {
-                        setAttempted(false);
-                        setPassword(val);
-                      }
+                      setAttempted(false);
+                      setPassword(val);
                     }}
                   />
-                  {/* <fieldset>
-                  <legend>Remember Me</legend>
-                  <label htmlFor="remember" className="checkbox">
-                    Remember Me
-                    <input type="checkbox" name="remember" id="remember" />
-                  </label>
-                  <span className="forgot-password-prompt">
-                    <a className="button--next">Forgot Password?</a>
-                  </span>
-                  <span className="error-message">
-                    This is where the error message goes
-                  </span>
-                </fieldset> */}
+                  <fieldset>
+                    <legend>Remember Me</legend>
+                    <label htmlFor="remember" className="checkbox">
+                      Remember Me
+                      <input type="checkbox" name="remember" id="remember" />
+                    </label>
+                    <span className="forgot-password-prompt">
+                      <a className="button--next">Forgot Password?</a>
+                    </span>
+                    <span className="error-message" />
+                  </fieldset>
                   {/* <div className="button-box left">
                   <button className="button" href="../home/index.html">
                     <span className="button-label">Log In</span>
