@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { useFormState } from "react-use-form-state";
 import { getValidationError } from "../../utility/validation";
+import isEqual from "lodash.isequal";
 
 const Input = ({
   type,
@@ -21,6 +22,7 @@ const Input = ({
   const [inputState, inputs] = useFormState(initState);
   const inputRef = useRef(null);
   const [currentType, setCurrentType] = useState(type);
+  const [lastValue, setLastValue] = useState(null);
 
   let isValid = true,
     validationError = "";
@@ -35,10 +37,15 @@ const Input = ({
   if (isTouched) {
     [validationError] = getValidationError(validity, type);
 
-    onChange({
+    const newValue = {
       valid: inputState.validity[uid],
       value: inputState.values[uid]
-    });
+    };
+
+    if (!isEqual(lastValue, newValue)) {
+      onChange(newValue);
+      setLastValue(newValue);
+    }
   }
 
   const inputProps = { ...rest };
