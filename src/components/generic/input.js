@@ -11,9 +11,11 @@ const Input = ({
   defaultValue,
   label,
   placeHolder,
+  labelClasses = [],
   inputClasses = [],
   fieldSetClasses = [],
   showErrors = true,
+  showValidity = true,
   onChange = () => null,
   ...rest
 }) => {
@@ -21,7 +23,6 @@ const Input = ({
   const initState = defaultValue ? { [uid]: defaultValue } : null;
   const [inputState, inputs] = useFormState(initState);
   const inputRef = useRef(null);
-  const [currentType, setCurrentType] = useState(type);
   const [lastValue, setLastValue] = useState(null);
 
   let isValid = true,
@@ -49,10 +50,15 @@ const Input = ({
   }
 
   const inputProps = { ...rest };
-  const fieldSetProps = {};
+  const fieldSetProps = {},
+    labelProps = {};
   if (inputClasses) {
     inputProps.className = classnames(inputClasses);
   }
+  if (labelClasses) {
+    labelProps.className = classnames(labelClasses);
+  }
+
   if (fieldSetClasses) {
     let extra = "";
     if (showErrors && isTouched) {
@@ -64,12 +70,10 @@ const Input = ({
     }
   }
 
-  const baseType = type;
-
   return (
     <fieldset {...fieldSetProps}>
       <legend>{label}</legend>
-      <label htmlFor={id}>
+      <label htmlFor={id} {...labelProps}>
         {label}
         {rest.required ? "*" : ""}
         <input
@@ -79,29 +83,18 @@ const Input = ({
           name={uid}
           placeholder={placeHolder || label}
           {...rest}
-          type={currentType}
+          type={type}
         />
-        <span className="is-valid" />
+        {showValidity && <span className="is-valid" />}
       </label>
-      {baseType === "password" && (
-        <span
-          className={classnames(
-            "la",
-            "show-hide-password",
-            currentType === "password" ? "la-eye-slash" : "la-eye"
-          )}
-          onClick={() => {
-            setCurrentType(currentType === "password" ? "text" : "password");
-          }}
-        />
-      )}
+      {rest.contain}
       <span className="error-message">{validationError}</span>
     </fieldset>
   );
 };
 
 Input.propTypes = {
-  type: PropTypes.oneOf(["email", "text", "password"]),
+  type: PropTypes.oneOf(["email", "text", "password", "checkbox"]),
   id: PropTypes.string
 };
 
