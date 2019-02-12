@@ -26,12 +26,17 @@ const Login = props => {
     const saved = window.localStorage.getItem("email");
     if (saved && email === null) {
       setEmail({ value: saved, valid: true });
+      setRemember(true);
     }
 
     setInit(true);
 
     return () => {
-      if (firebase.auth.currentUser && remember) {
+      if (!firebase.auth.currentUser) {
+        return;
+      }
+      // the user has been authenticated
+      if (remember) {
         window.localStorage.setItem("email", email.value);
       } else {
         window.localStorage.removeItem("email");
@@ -124,6 +129,7 @@ const Login = props => {
                     }}
                   />
                   <Remember
+                    defaultValue={remember}
                     onChange={({ value }) => {
                       //console.log(`Setting remember to ${value}`);
                       setRemember(value);
