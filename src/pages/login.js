@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../components/generic/input";
+import Password from "../components/generic/password";
+import Remember from "../components/generic/remember";
 import ButtonWrapper from "../components/generic/buttonWrapper";
 import Button from "../components/generic/button";
 import Header from "../components/header";
@@ -8,15 +10,34 @@ import queryString from "query-string";
 import { navigate } from "@reach/router";
 
 const Login = props => {
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState(null);
   const [password, setPassword] = useState();
   const [attempted, setAttempted] = useState(false);
+  const [remember, setRemember] = useState(false);
+  const [init, setInit] = useState(false);
+
   const [qs] = useState(queryString.parse(props.location.search));
   const firebase = useFirebase();
 
   const showEmailErrors = attempted && email && !email.valid;
-
   const showPasswordErrors = attempted && password && !password.valid;
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("email");
+    if (saved && email === null) {
+      setEmail({ value: saved, valid: true });
+    }
+
+    setInit(true);
+
+    return () => {
+      if (firebase.auth.currentUser && remember) {
+        window.localStorage.setItem("email", email.value);
+      } else {
+        window.localStorage.removeItem("email");
+      }
+    };
+  }, [remember]);
 
   const handleClick = () => {
     if (!email || !password) {
@@ -58,6 +79,10 @@ const Login = props => {
       alert(e);
     }
   };
+  if (!init) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <Header />
@@ -76,7 +101,7 @@ const Login = props => {
                     type="email"
                     label="Email Address"
                     placeHolder="Enter your email address"
-                    // defaultValue="leslie@mcmillan.com"
+                    defaultValue={email ? email.value : ""}
                     inputClasses="email-address"
                     autoComplete="true"
                     required
@@ -86,8 +111,7 @@ const Login = props => {
                       setEmail(val);
                     }}
                   />
-                  <Input
-                    type="password"
+                  <Password
                     id="password"
                     label="Password"
                     placeHolder="Enter your password"
@@ -99,22 +123,12 @@ const Login = props => {
                       setPassword(val);
                     }}
                   />
-                  <fieldset>
-                    <legend>Remember Me</legend>
-                    <label htmlFor="remember" className="checkbox">
-                      Remember Me
-                      <input type="checkbox" name="remember" id="remember" />
-                    </label>
-                    <span className="forgot-password-prompt">
-                      <a className="button--next">Forgot Password?</a>
-                    </span>
-                    <span className="error-message" />
-                  </fieldset>
-                  {/* <div className="button-box left">
-                  <button className="button" href="../home/index.html">
-                    <span className="button-label">Log In</span>
-                  </button>
-                </div> */}
+                  <Remember
+                    onChange={({ value }) => {
+                      console.log(`Setting remember to ${value}`);
+                      setRemember(value);
+                    }}
+                  />
                   <ButtonWrapper wrapperClasses="left">
                     <Button
                       handleClick={e => {
