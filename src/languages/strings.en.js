@@ -1,5 +1,11 @@
 const resources = {
   translation: {
+    "splash.header.welcome": "Welcome to My Stuff",
+    "splash.header.welcome.subtext":
+      "A new service designed to make it wicked easy to catalog the important details of all of your stuff.",
+    "splash.login": "Login In Now",
+    "splash.create": "Create An Account",
+    "splash.demo": "or try My Stuff as a guest",
     "login.header.welcome": "Welcome",
     "login.header.welcome.subtext": "Please log in to continue.",
     "login.email": "Email Address",
