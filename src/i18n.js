@@ -3,15 +3,13 @@ import { initReactI18next } from "react-i18next";
 import resources from "./languages/";
 
 i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(initReactI18next)
   .init({
     resources,
     lng: "en",
-
-    keySeparator: false, // we do not use keys in form messages.welcome
-
+    keySeparator: false,
     interpolation: {
-      escapeValue: false // react already safes from xss
+      escapeValue: false
     }
   });
 
