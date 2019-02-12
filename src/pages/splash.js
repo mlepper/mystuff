@@ -3,9 +3,12 @@ import classnames from "classnames";
 import { navigate } from "@reach/router";
 import ButtonWrapper from "../components/generic/buttonWrapper";
 import Button from "../components/generic/button";
+import { useTranslation } from "react-i18next";
 
 const Splash = function() {
   const [initClass, setInitClass] = useState("loading");
+  const { t } = useTranslation();
+
   useEffect(() => {
     window.setTimeout(() => {
       setInitClass(classnames(initClass, "loaded"));
@@ -38,19 +41,18 @@ const Splash = function() {
           </svg>
         </div>
         <div className="text center md animated fadeInUp">
-          <h1>Welcome to My Stuff</h1>
-          <p>
-            A new service designed to make it wicked easy to catalog the
-            important details of all of your stuff.
-          </p>
+          <h1>{t("splash.header.welcome")}</h1>
+          <p>{t("splash.header.welcome.subtext")}</p>
           <ButtonWrapper>
-            <Button handleClick={() => navigate("/login")}>Login In Now</Button>
+            <Button handleClick={() => navigate("/login")}>
+              {t("splash.login")}
+            </Button>
             <Button buttonClasses="secondary" handleClick={null}>
-              Create An Account
+              {t("splash.create")}
             </Button>
           </ButtonWrapper>
           <p className="animated fadeInUp delay-2s">
-            <a>or try My Stuff as a guest</a>
+            <a>{t("splash.demo")}</a>
           </p>
         </div>
       </section>
