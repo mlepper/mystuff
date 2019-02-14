@@ -14,7 +14,12 @@ const resources = {
     "login.password.placeholder": "Enter your password",
     "login.remember": "Remember Email",
     "login.forgot": "Forgot Password?",
-    "login.button": "Login"
+    "login.button": "Login",
+
+    "footer.home": "Home",
+    "footer.stuff": "Stuff",
+    "footer.profile": "Profile",
+    "footer.settings": "Settings"
   }
 };
 

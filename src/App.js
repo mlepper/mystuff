@@ -3,9 +3,14 @@ import Splash from "./pages/splash";
 import NotFound from "./pages/notFound";
 import Login from "./pages/login";
 import Home from "./pages/home";
+import Settings from "./pages/settings";
+import Stuff from "./pages/stuff";
+import Profile from "./pages/profile";
 import { Router } from "@reach/router";
 import Protected from "./utility/protected";
 import { useFirebase } from "./utility/firebase/";
+
+import "./css/custom.css";
 
 const App = () => {
   const [initialized, setInitialized] = useState(false);
@@ -28,6 +33,9 @@ const App = () => {
       <Splash path="/" />
       <Login path="login" />
       <Protected path="/home" component={Home} />
+      <Protected path="/settings" component={Settings} />
+      <Protected path="/profile" component={Profile} />
+      <Protected path="/stuff" component={Stuff} />
       <NotFound default />
     </Router>
   );

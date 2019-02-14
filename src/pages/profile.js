@@ -2,16 +2,16 @@ import React from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
-import { useFirebase } from "../utility/firebase/";
-import { navigate } from "@reach/router";
-
-const Home = () => {
+export default props => {
   return (
     <>
       <Header />
+      <main>
+        <section>
+          <h1>Some Profile</h1>
+        </section>
+      </main>
       <Footer />
     </>
   );
 };
-
-export default Home;
