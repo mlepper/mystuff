@@ -16,6 +16,8 @@ const resources = {
     "login.forgot": "Forgot Password?",
     "login.button": "Login",
 
+    "stuff.button.add": "Add New Stuff",
+
     "footer.home": "Home",
     "footer.stuff": "Stuff",
     "footer.profile": "Profile",
