@@ -7,8 +7,7 @@ export default ({
   buttonClasses,
   buttonProps = {},
   labelClasses,
-  labelProps = {},
-  ...rest
+  labelProps = {}
 }) => {
   return (
     <button

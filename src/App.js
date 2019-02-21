@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import Home from "./pages/home";
 import Settings from "./pages/settings";
 import Stuff from "./pages/stuff";
+import AddStuff from "./pages/addStuff";
 import Profile from "./pages/profile";
 import { Router } from "@reach/router";
 import Protected from "./utility/protected";
@@ -36,6 +37,7 @@ const App = () => {
       <Protected path="/settings" component={Settings} />
       <Protected path="/profile" component={Profile} />
       <Protected path="/stuff" component={Stuff} />
+      <Protected path="/stuff/add" component={AddStuff} />
       <NotFound default />
     </Router>
   );
