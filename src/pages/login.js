@@ -5,6 +5,7 @@ import Remember from "../components/remember";
 import ButtonWrapper from "../components/generic/buttonWrapper";
 import Button from "../components/generic/button";
 import Header from "../components/header";
+import Notifications from "../components/generic/notifications";
 import { useFirebase } from "../utility/firebase/";
 import queryString from "query-string";
 import { navigate } from "@reach/router";
@@ -16,6 +17,7 @@ const Login = props => {
   const [attempted, setAttempted] = useState(false);
   const [remember, setRemember] = useState(false);
   const [init, setInit] = useState(false);
+  const [loginError, setLoginError] = useState(null);
 
   const [qs] = useState(queryString.parse(props.location.search));
   const firebase = useFirebase();
@@ -79,7 +81,7 @@ const Login = props => {
           //   alert(errorMessage);
           // }
           // eslint-disable-next-line
-          alert(error);
+          setLoginError("Invalid email or password");
           // [END_EXCLUDE]
         });
     } catch (e) {
@@ -95,6 +97,7 @@ const Login = props => {
       <Header />
       <main>
         <section data-qa="log-in">
+          <Notifications errorMessage={loginError} />
           <div className="carousel no-padding">
             <div className="carousel-cell">
               <div className="text">
