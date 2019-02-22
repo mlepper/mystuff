@@ -85,7 +85,7 @@ const Login = props => {
           // [END_EXCLUDE]
         });
     } catch (e) {
-      alert(e);
+      // alert(e);
     }
   };
   if (!init) {
@@ -96,8 +96,8 @@ const Login = props => {
     <React.Fragment>
       <Header />
       <main>
+        <Notifications errorMessage={loginError} />
         <section data-qa="log-in">
-          <Notifications errorMessage={loginError} />
           <div className="carousel no-padding">
             <div className="carousel-cell">
               <div className="text">

@@ -5,16 +5,22 @@ const Notification = ({
   errorMessage,
   successMessage,
   confirmMessage,
-  autoCloseMS = 30000
+  autoCloseMS = 3000
 }) => {
-  const [showError, setShowError] = useState(!!errorMessage);
+  const [showError, setShowError] = useState(false);
   const showSuccess = !!successMessage || !!confirmMessage;
 
+  if (errorMessage && !showError) {
+    setShowError(true);
+  }
+
   useEffect(() => {
-    window.setTimeout(() => {
-      setShowError(false);
-    }, autoCloseMS);
-  }, []);
+    if (showError) {
+      window.setTimeout(() => {
+        setShowError(false);
+      }, autoCloseMS);
+    }
+  }, [showError]);
 
   return (
     <section>
