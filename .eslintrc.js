@@ -33,5 +33,6 @@ module.exports = {
     ],
     "react/prop-types": "off",
     "react/display-name": "off"
+    // "react-hooks/rules-of-hooks": "error"
   }
 };
