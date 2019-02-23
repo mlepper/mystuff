@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Splash from "./pages/splash";
 import NotFound from "./pages/notFound";
-import Login from "./pages/login";
+import Login from "./pages/login/";
 import Home from "./pages/home";
 import Settings from "./pages/settings";
 import Stuff from "./pages/stuff";

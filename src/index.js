@@ -1,13 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+/*eslint-disable-next-line*/
 import i18n from "./i18n";
+import { Provider } from "react-redux";
+import store from "./store";
 import * as serviceWorker from "./serviceWorker";
 import Firebase, { FirebaseContext } from "./utility/firebase";
 
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </FirebaseContext.Provider>,
   document.getElementById("root")
 );
