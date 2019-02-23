@@ -15,6 +15,7 @@ const resources = {
     "login.remember": "Remember Email",
     "login.forgot": "Forgot Password?",
     "login.button": "Login",
+    "login.error.invalid": "Something is wrong with your email and/or password",
 
     "stuff.button.add": "Add New Stuff",
 
