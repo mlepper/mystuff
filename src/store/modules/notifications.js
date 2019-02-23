@@ -20,10 +20,10 @@ export const { reducer, actions, selectors } = autodux({
 
 export const addError = (message, autodismiss = 3000) => {
   return dispatch => {
-    dispatch({ type: "notification/addError", payload: message });
+    dispatch(actions.addError(message));
     if (autodismiss) {
       setTimeout(() => {
-        dispatch({ type: "notification/removeError", payload: message });
+        dispatch(actions.removeError(message));
       }, autodismiss);
     }
   };
