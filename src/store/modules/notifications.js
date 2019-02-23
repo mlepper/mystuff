@@ -1,4 +1,3 @@
-/*eslint-disable react-hooks/rules-of-hooks */
 import autodux from "../../../node_modules/autodux/src";
 
 export const { reducer, actions, selectors } = autodux({
@@ -7,14 +6,25 @@ export const { reducer, actions, selectors } = autodux({
     errors: []
   },
   actions: {
-    addError: (state, error) => {
-      if (!state.errors.find(e => e === error)) {
-        return { errors: [error, ...state.errors] };
+    addError: (state, message) => {
+      if (!state.errors.find(e => e === message)) {
+        return { ...state, errors: [message, ...state.errors] };
       }
-      return { errors: state.errors };
+      return { ...state, errors: state.errors };
     },
-    removeError: (state, error) => {
-      return { errors: state.errors.filter(e => e !== error) };
+    removeError: (state, message) => {
+      return { errors: state.errors.filter(e => e !== message) };
     }
   }
 });
+
+export const addError = (message, autodismiss = 3000) => {
+  return dispatch => {
+    dispatch({ type: "notification/addError", payload: message });
+    if (autodismiss) {
+      setTimeout(() => {
+        dispatch({ type: "notification/removeError", payload: message });
+      }, autodismiss);
+    }
+  };
+};

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions } from "../../store/modules/notifications";
+import { actions, addError } from "../../store/modules/notifications";
 import Login from "./login";
 
 const mapStateToProps = state => {
@@ -9,7 +9,7 @@ const mapStateToProps = state => {
   };
 };
 
-const { addError, removeError } = actions;
+const { removeError } = actions;
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
