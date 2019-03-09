@@ -22,8 +22,8 @@ const Login = props => {
   const firebase = useFirebase();
   const { t } = useTranslation();
 
-  const showEmailErrors = attempted && email && !email.valid;
-  const showPasswordErrors = attempted && password && !password.valid;
+  const showEmailErrors = attempted && (!email || !email.valid);
+  const showPasswordErrors = attempted && (!password || !password.valid);
 
   const { addError } = props;
 
@@ -50,12 +50,6 @@ const Login = props => {
   }, [remember]);
 
   const handleClick = () => {
-    if (!email || !password) {
-      // eslint-disable-next-line
-      console.log("Fill in fields");
-      return;
-    }
-
     setAttempted(true);
 
     if (!email.valid || !password.valid) {
@@ -90,6 +84,8 @@ const Login = props => {
       // alert(e);
     }
   };
+  const buttonProps = {};
+
   if (!init) {
     return null;
   }
@@ -144,6 +140,7 @@ const Login = props => {
                   />
                   <ButtonWrapper wrapperClasses="left">
                     <Button
+                      buttonProps={buttonProps}
                       handleClick={e => {
                         e.preventDefault();
                         handleClick();

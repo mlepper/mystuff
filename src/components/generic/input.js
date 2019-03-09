@@ -8,7 +8,7 @@ import isEqual from "lodash.isequal";
 const Input = ({
   type,
   id,
-  defaultValue,
+  defaultValue = "",
   label,
   placeHolder,
   labelClasses = [],
@@ -24,6 +24,7 @@ const Input = ({
   const [inputState, inputs] = useFormState(initState);
   const inputRef = useRef(null);
   const [lastValue, setLastValue] = useState(null);
+  const [initializing, setInitializing] = useState(true);
 
   let isValid = true,
     validationError = "";
@@ -35,11 +36,11 @@ const Input = ({
   const validity =
     (inputRef && inputRef.current && inputRef.current.validity) || {};
 
-  if (isTouched) {
+  if (showErrors || isTouched) {
     [validationError] = getValidationError(validity, type);
 
     const newValue = {
-      valid: inputState.validity[uid],
+      valid: !!inputState.validity[uid],
       value: inputState.values[uid]
     };
 
@@ -47,6 +48,13 @@ const Input = ({
       onChange(newValue);
       setLastValue(newValue);
     }
+  }
+
+  if (initializing) {
+    const newValue = { valid: false, value: defaultValue };
+    onChange(newValue);
+    setLastValue(newValue);
+    setInitializing(false);
   }
 
   const inputProps = { ...rest };
@@ -61,8 +69,8 @@ const Input = ({
 
   if (fieldSetClasses) {
     let extra = "";
-    if (showErrors && isTouched) {
-      extra = isValid ? "valid" : "invalid";
+    if (showErrors) {
+      extra = !isValid || validationError ? "invalid" : "valid";
     }
     fieldSetProps.className = classnames(fieldSetClasses, extra);
     if (!fieldSetProps.className) {

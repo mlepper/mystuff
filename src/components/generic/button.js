@@ -9,6 +9,11 @@ export default ({
   labelClasses,
   labelProps = {}
 }) => {
+  buttonClasses = buttonClasses || [];
+  if (buttonProps && buttonProps.disabled) {
+    buttonClasses.push("disabled");
+  }
+
   return (
     <button
       className={classnames("button", buttonClasses)}
