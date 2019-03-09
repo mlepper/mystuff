@@ -92,6 +92,7 @@ const Input = ({
           placeholder={placeHolder || label}
           {...rest}
           type={type}
+          {...inputProps}
         />
         {showValidity && <span className="is-valid" />}
       </label>

@@ -95,118 +95,65 @@ const Login = props => {
       <Header />
       <main>
         <Notification />
-        <section data-qa="log-in">
-          <div className="carousel no-padding">
-            <div className="carousel-cell">
-              <div className="text">
-                <h1>{t("login.header.welcome")}</h1>
-                <p>{t("login.header.welcome.subtext")}</p>
-              </div>
-              <div className="form-container">
-                <form>
-                  <Input
-                    id="email-address"
-                    type="email"
-                    label={t("login.email")}
-                    placeHolder={t("login.email.placeholder")}
-                    defaultValue={email ? email.value : ""}
-                    inputClasses="email-address"
-                    autoComplete="true"
-                    required
-                    showErrors={showEmailErrors}
-                    onChange={val => {
-                      setAttempted(false);
-                      setEmail(val);
-                    }}
-                  />
-                  <Password
-                    id="password"
-                    label={t("login.password")}
-                    placeHolder={t("login.password.placeholder")}
-                    required
-                    minLength={6}
-                    showErrors={showPasswordErrors}
-                    onChange={val => {
-                      setAttempted(false);
-                      setPassword(val);
-                    }}
-                  />
-                  <Remember
-                    defaultValue={remember}
-                    onChange={({ value }) => {
-                      //console.log(`Setting remember to ${value}`);
-                      setRemember(value);
-                    }}
-                  />
-                  <ButtonWrapper wrapperClasses="left">
-                    <Button
-                      buttonProps={buttonProps}
-                      handleClick={e => {
-                        e.preventDefault();
-                        handleClick();
-                      }}
-                    >
-                      {t("login.button")}
-                    </Button>
-                  </ButtonWrapper>
-                </form>
-                {/* <p>
-                <small>
-                  Don't have an account?
-                  <a href="../register/index.html">Create one now</a>.
-                </small>
-              </p> */}
-              </div>
-            </div>
-            {/* <div className="carousel-cell">
-            <div className="text">
-              <h1>Reset Your Password</h1>
-              <p>
-                Enter your email address and we'll send you a link to reset your
-                password.
-              </p>
-            </div>
-            <div className="form-container">
-              <form>
-                <fieldset>
-                  <legend>Email Address</legend>
-                  <label for="email-address">
-                    Email Address&#42;
-                    <input
-                      type="email"
-                      name="email-address"
-                      className="email-address"
-                      placeholder="Enter your email address"
-                      autocomplete
-                    />
-                    >
-                  </label>
-                  <span className="error-message">
-                    This is where the error message goes
-                  </span>
-                </fieldset>
-                <div className="button-box left">
-                  <a className="button button--next">
-                    <span className="button-label">Reset Password</span>
-                  </a>
+        <section className="sign-in md">
+          <div className="slider ext">
+            <div className="slider int">
+              <div className="slide one">
+                <div className="text">
+                  <h1>{t("login.header.welcome")}</h1>
+                  <p>{t("login.header.welcome.subtext")}</p>
                 </div>
-              </form>
-              <p>
-                <small>
-                  Return to <a className="button--previous">Log In</a>.
-                </small>
-              </p>
+                <div className="form-container">
+                  <form>
+                    <Input
+                      id="email-address"
+                      type="email"
+                      label={t("login.email")}
+                      placeHolder={t("login.email.placeholder")}
+                      defaultValue={email ? email.value : ""}
+                      inputClasses="email-address"
+                      autoComplete="true"
+                      required
+                      showErrors={showEmailErrors}
+                      onChange={val => {
+                        setAttempted(false);
+                        setEmail(val);
+                      }}
+                    />
+                    <Password
+                      id="password"
+                      label={t("login.password")}
+                      placeHolder={t("login.password.placeholder")}
+                      required
+                      minLength={6}
+                      showErrors={showPasswordErrors}
+                      onChange={val => {
+                        setAttempted(false);
+                        setPassword(val);
+                      }}
+                    />
+                    <Remember
+                      defaultValue={remember}
+                      onChange={({ value }) => {
+                        //console.log(`Setting remember to ${value}`);
+                        setRemember(value);
+                      }}
+                    />
+                    <ButtonWrapper wrapperClasses="left">
+                      <Button
+                        buttonProps={buttonProps}
+                        handleClick={e => {
+                          e.preventDefault();
+                          handleClick();
+                        }}
+                      >
+                        {t("login.button")}
+                      </Button>
+                    </ButtonWrapper>
+                  </form>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="carousel-cell">
-            <div className="text">
-              <h1>Password Reset Email Sent</h1>
-              <p>
-                Please check your email inbox. We've sent you a special link
-                that you can use to reset your password.
-              </p>
-            </div>
-          </div>*/}
           </div>
         </section>
       </main>
