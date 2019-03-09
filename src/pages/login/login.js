@@ -50,8 +50,6 @@ const Login = props => {
   }, [remember]);
 
   const handleClick = () => {
-    // return addError("Invalid email or password");
-
     if (!email || !password) {
       // eslint-disable-next-line
       console.log("Fill in fields");
@@ -85,7 +83,7 @@ const Login = props => {
           // }
           // eslint-disable-next-line
           console.log(error);
-          addError("Invalid email or password");
+          addError(t("login.error.invalid"));
           // [END_EXCLUDE]
         });
     } catch (e) {
