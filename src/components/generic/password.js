@@ -9,6 +9,7 @@ const Password = ({ type, ...rest }) => {
   return (
     <Input
       type={currentType}
+      inputClasses={["block-tab"]}
       {...rest}
       contain={
         <span
