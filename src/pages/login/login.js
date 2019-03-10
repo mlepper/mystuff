@@ -153,6 +153,8 @@ const Login = props => {
                   </form>
                 </div>
               </div>
+              <div className="slide two" />
+              <div className="slide three" />
             </div>
           </div>
         </section>
