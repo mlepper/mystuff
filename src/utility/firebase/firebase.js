@@ -1,5 +1,6 @@
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 
 /* eslint-disable */
 const config = {
@@ -16,6 +17,8 @@ class Firebase {
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
+    this.db = app.database();
+    window.fb = this;
   }
 
   // *** Auth API ***
@@ -30,6 +33,13 @@ class Firebase {
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
+
+  items = uid => this.db.ref(`/items/${uid}`);
+
+  itemsCurrentUser = () => {
+    const { uid } = this.auth.currentUser;
+    return this.items(uid);
+  };
 }
 
 export default Firebase;

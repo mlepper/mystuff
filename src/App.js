@@ -17,9 +17,9 @@ const App = () => {
   const [initialized, setInitialized] = useState(false);
   const firebase = useFirebase();
   useEffect(() => {
+    /* eslint-disable-next-line*/
     firebase.auth.onAuthStateChanged(user => {
-      /* eslint-disable-next-line*/
-      console.log(user);
+      //console.log(user);
       setInitialized(true);
     });
   }, []);
